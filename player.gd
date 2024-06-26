@@ -16,14 +16,18 @@ func _process(delta):
 	if health == 0:
 		dead = true
 	#checks input then changes by relative value
+	var velocity = Vector2.ZERO
 	if Input.is_action_pressed("left"):
-		move_local_x(-speed)
+		velocity -= 1
 	if Input.is_action_pressed("right"):
-		move_local_x(speed)
+		velocity += 1
 	if Input.is_action_pressed("up"):
-		move_local_y(-speed)
+		velocity -= 1
 	if Input.is_action_pressed("down"):
-		move_local_y(speed)
+		velocity += 1
+	velocity = velocity.normalized() * speed
+	move_local_x(velocity.x)
+	move_local_y(velocity.y)
 	#sprinting
 	if Input.is_action_pressed("fast"):
 		speed = fastSpeed
